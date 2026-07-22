@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,32 +9,75 @@
 
 <style>
 
-body{
+*{
     margin:0;
-    background:#ffffff;
-    text-align:center;
-    font-family:Arial, sans-serif;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#000;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 img{
+    display:block;
     width:100%;
-    max-width:1200px;
     height:auto;
 }
 
-.contenedor{
+.portada{
+    position:relative;
     max-width:1200px;
     margin:auto;
-    padding:20px;
+}
+
+.overlay{
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    background:rgba(0,0,0,.20);
+
+    color:white;
+    text-align:center;
+
+    text-shadow:
+    2px 2px 10px #000,
+    0 0 20px #000;
+}
+
+.titulo{
+    font-size:clamp(24px,4vw,50px);
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.subtitulo{
+    font-size:clamp(18px,2vw,28px);
+    margin-bottom:20px;
 }
 
 .contador{
-    font-size:48px;
+    font-size:clamp(50px,8vw,120px);
     font-weight:bold;
-    color:#0066cc;
+    color:#ffd700;
+}
+
+.texto{
+    font-size:clamp(16px,2vw,26px);
+    margin-top:15px;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -42,62 +86,84 @@ img{
 
 <script>
 
-const hoy = new Date();
-
-const mes =
-String(hoy.getMonth() + 1).padStart(2,"0");
-
-const dia =
-String(hoy.getDate()).padStart(2,"0");
-
-const clave = `${mes}-${dia}`;
-
 const contenido =
 document.getElementById("contenido");
 
+const hoy = new Date();
+
+const clave =
+String(hoy.getMonth() + 1).padStart(2,"0")
++
+"-"
++
+String(hoy.getDate()).padStart(2,"0");
+
+// FECHAS CON .PNG.PNG
+const dobles = [
+"10-01","10-02","10-03","10-04","10-05",
+"10-06","10-07","10-08","10-09","10-10",
+"10-11","10-12","10-13","10-14","10-15"
+];
+
 const imagen = new Image();
 
-imagen.onload = function() {
+imagen.onload = function(){
 
     contenido.innerHTML = "";
     contenido.appendChild(imagen);
 
 };
 
-imagen.onerror = function() {
+imagen.onerror = function(){
 
-    const inicio = new Date("2026-10-01");
+    const inicio =
+    new Date("2026-10-01");
 
-    const dias = Math.ceil(
-        (inicio - hoy) /
-        (1000*60*60*24)
+    const dias =
+    Math.ceil(
+    (inicio - new Date())
+    /
+    (1000*60*60*24)
     );
 
     contenido.innerHTML = `
-        <div class="contenedor">
 
-            <img
-                src="Portada.jpg"
-                alt="Portada">
+    <div class="portada">
 
-            <h1>
+        <img
+        src="Portada.jpg"
+        alt="Portada">
+
+        <div class="overlay">
+
+            <div class="titulo">
                 Prevención Playas
-                2026-2027
-            </h1>
+            </div>
 
-            <h2>
-                Cuenta regresiva
-            </h2>
+            <div class="subtitulo">
+                Temporada 2026-2027
+            </div>
 
             <div class="contador">
-                ${dias} días
+                ${dias}
+            </div>
+
+            <div class="texto">
+                días para comenzar
             </div>
 
         </div>
+
+    </div>
+
     `;
 };
 
-imagen.src = `${clave}.png`;
+if(dobles.includes(clave)){
+    imagen.src = `${clave}.png.png`;
+}else{
+    imagen.src = `${clave}.png`;
+}
 
 </script>
 
