@@ -7,10 +7,12 @@
 <title>Prevención Playas 2026-2027</title>
 
 <style>
+
 body{
     margin:0;
-    background:#fff;
+    background:#ffffff;
     text-align:center;
+    font-family:Arial, sans-serif;
 }
 
 img{
@@ -18,64 +20,84 @@ img{
     max-width:1200px;
     height:auto;
 }
+
+.contenedor{
+    max-width:1200px;
+    margin:auto;
+    padding:20px;
+}
+
+.contador{
+    font-size:48px;
+    font-weight:bold;
+    color:#0066cc;
+}
+
 </style>
 </head>
 
 <body>
 
-<img id="imagenDia" alt="Prevención Playas">
+<div id="contenido"></div>
 
 <script>
 
 const hoy = new Date();
 
-const clave =
-String(hoy.getMonth() + 1).padStart(2, "0")
-+ "-"
-+ String(hoy.getDate()).padStart(2, "0");
+const mes =
+String(hoy.getMonth() + 1).padStart(2,"0");
 
-const imagen = document.getElementById("imagenDia");
+const dia =
+String(hoy.getDate()).padStart(2,"0");
 
-const primeras15 = [
-"10-01","10-02","10-03","10-04","10-05",
-"10-06","10-07","10-08","10-09","10-10",
-"10-11","10-12","10-13","10-14","10-15"
-];
+const clave = `${mes}-${dia}`;
 
-if (primeras15.includes(clave)) {
-    imagen.src = `${clave}.png.png`;
-} else {
-    imagen.src = `${clave}.png`;
-}
+const contenido =
+document.getElementById("contenido");
+
+const imagen = new Image();
+
+imagen.onload = function() {
+
+    contenido.innerHTML = "";
+    contenido.appendChild(imagen);
+
+};
 
 imagen.onerror = function() {
 
-    document.body.innerHTML = `
-        <div style="max-width:1200px;margin:auto;padding:20px;text-align:center;font-family:Arial,sans-serif;">
+    const inicio = new Date("2026-10-01");
 
-            <img src="Portada.jpg" style="width:100%;max-width:1200px;height:auto;" alt="Portada">
+    const dias = Math.ceil(
+        (inicio - hoy) /
+        (1000*60*60*24)
+    );
 
-            <h1>Prevención Playas 2026-2027</h1>
+    contenido.innerHTML = `
+        <div class="contenedor">
 
-            <h2>Cuenta regresiva</h2>
+            <img
+                src="Portada.jpg"
+                alt="Portada">
 
-            <div id="contador" style="font-size:42px;font-weight:bold;color:#0055aa;"></div>
+            <h1>
+                Prevención Playas
+                2026-2027
+            </h1>
+
+            <h2>
+                Cuenta regresiva
+            </h2>
+
+            <div class="contador">
+                ${dias} días
+            </div>
 
         </div>
     `;
-
-    const inicio = new Date("2026-10-01");
-
-    function actualizar() {
-        const ahora = new Date();
-        const dias = Math.ceil((inicio - ahora)/(1000*60*60*24));
-
-        document.getElementById("contador").innerText =
-        dias + " días";
-    }
-
-    actualizar();
 };
+
+imagen.src = `${clave}.png`;
 
 </script>
 
