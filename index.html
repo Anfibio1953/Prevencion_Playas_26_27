@@ -27,23 +27,54 @@ img{
 
 <script>
 
+<script>
+
 const hoy = new Date();
 
 const clave =
-String(hoy.getMonth()+1).padStart(2,"0")
+String(hoy.getMonth() + 1).padStart(2,"0")
 + "-"
 + String(hoy.getDate()).padStart(2,"0");
 
 const imagen = document.getElementById("imagenDia");
 
-// Tus archivos tienen extensión .png.png
 imagen.src = `${clave}.png.png`;
 
 imagen.onerror = () => {
-    document.body.innerHTML =
-    "<h2>Imagen no disponible para esta fecha</h2>";
+
+    const inicio = new Date("2026-10-01");
+
+    const dias = Math.ceil(
+        (inicio - hoy) / (1000 * 60 * 60 * 24)
+    );
+
+    document.body.innerHTML = `
+        <div style="
+            max-width:1000px;
+            margin:auto;
+            padding:20px;
+            text-align:center;
+            font-family:Arial,sans-serif;
+        ">
+
+            <img
+                src="Portada.jpg"
+                style="width:100%;max-width:1200px;height:auto;"
+                alt="Portada">
+
+            <h1>Prevención Playas 2026-2027</h1>
+
+            <h2>Faltan ${dias} días</h2>
+
+            <p>
+                para el inicio de las publicaciones diarias.
+            </p>
+
+        </div>
+    `;
 };
 
+</script>
 </script>
 
 </body>
