@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Prevención Playas 2026-2027</title>
+
+<style>
+body{
+    margin:0;
+    background:#fff;
+    text-align:center;
+}
+
+img{
+    width:100%;
+    max-width:1200px;
+    height:auto;
+}
+</style>
+</head>
+
+<body>
+
+<img id="imagenDia" alt="Prevención Playas">
+
+<script>
+
+const hoy = new Date();
+
+const clave =
+String(hoy.getMonth()+1).padStart(2,"0")
++ "-"
++ String(hoy.getDate()).padStart(2,"0");
+
+const imagen = document.getElementById("imagenDia");
+
+// Tus archivos tienen extensión .png.png
+imagen.src = `${clave}.png.png`;
+
+imagen.onerror = () => {
+    document.body.innerHTML =
+    "<h2>Imagen no disponible para esta fecha</h2>";
+};
+
+</script>
+
+</body>
+</html>
